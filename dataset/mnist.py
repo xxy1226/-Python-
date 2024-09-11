@@ -12,10 +12,10 @@ import numpy as np
 
 url_base = 'http://yann.lecun.com/exdb/mnist/'
 key_file = {
-    'train_img':'train-images-idx3-ubyte.gz',
-    'train_label':'train-labels-idx1-ubyte.gz',
-    'test_img':'t10k-images-idx3-ubyte.gz',
-    'test_label':'t10k-labels-idx1-ubyte.gz'
+    'train_img':'train-images.idx3-ubyte',
+    'train_label':'train-labels.idx1-ubyte',
+    'test_img':'t10k-images.idx3-ubyte',
+    'test_label':'t10k-labels.idx1-ubyte'
 }
 
 dataset_dir = os.path.dirname(os.path.abspath(__file__))
@@ -45,7 +45,7 @@ def _load_label(file_name):
     file_path = dataset_dir + "/" + file_name
     
     print("Converting " + file_name + " to NumPy Array ...")
-    with gzip.open(file_path, 'rb') as f:
+    with open(file_path, 'rb') as f:
             labels = np.frombuffer(f.read(), np.uint8, offset=8)
     print("Done")
     
@@ -55,7 +55,7 @@ def _load_img(file_name):
     file_path = dataset_dir + "/" + file_name
     
     print("Converting " + file_name + " to NumPy Array ...")    
-    with gzip.open(file_path, 'rb') as f:
+    with open(file_path, 'rb') as f:
             data = np.frombuffer(f.read(), np.uint8, offset=16)
     data = data.reshape(-1, img_size)
     print("Done")
